@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ACCUWEATHER_API_KEY } from '../../config';
+import { ACCUWEATHER_API_KEY } from '../../public/config';
 
 const Weather = () => {
   const [forecast, setForecast] = useState([]);
