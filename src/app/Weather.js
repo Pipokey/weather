@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ACCUWEATHER_API_KEY } from '../../public/config';
 
@@ -6,31 +6,31 @@ const Weather = () => {
   const [forecast, setForecast] = useState([]);
   const [screenWidth, setScreenWidth] = useState(null);
 
-  useEffect(() => {
-    const fetchWeatherData = async () => {
-      try {
-        const response = await axios.get(
-          `http://dataservice.accuweather.com/forecasts/v1/daily/5day/1825925?apikey=${ACCUWEATHER_API_KEY}`
-        );
-        setForecast(response.data.DailyForecasts);
-      } catch (error) {
-        console.error('Error fetching weather data:', error);
-      }
-    };
+  const fetchWeatherData = async () => {
+    try {
+      const response = await axios.get(
+        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/1825925?apikey=${ACCUWEATHER_API_KEY}`
+      );
+      setForecast(response.data.DailyForecasts);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+    }
+  };
 
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    // Fetch data when the component mounts
     fetchWeatherData();
-  }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    // Check if window object is available (browser environment)
+    // Attach resize event listener when the component mounts
     if (typeof window !== 'undefined') {
       setScreenWidth(window.innerWidth);
       window.addEventListener('resize', handleResize);
 
+      // Cleanup: remove event listener when the component unmounts
       return () => {
         window.removeEventListener('resize', handleResize);
       };
