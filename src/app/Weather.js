@@ -9,7 +9,7 @@ const Weather = () => {
   const fetchWeatherData = async () => {
     try {
       const response = await axios.get(
-        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/1825925?apikey=${ACCUWEATHER_API_KEY}`
+        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/1825925?apikey=${ACCUWEATHER_API_KEY}`
       );
       setForecast(response.data.DailyForecasts);
     } catch (error) {
